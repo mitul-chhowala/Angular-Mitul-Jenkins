@@ -1,14 +1,21 @@
 {
   "name": "bus-booking-angular-18",
-  "version": "0.0.0",
+  "version": "2.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "version-stamp": "npm version 1.0.0-$(Get-Date -Format 'yyyyMMdd-HHmm') --no-git-tag-version",
+    "deploy": "npm run version-stamp && npm run build && cp package.json dist/country-view/ && cd dist/country-view && npm publish"
+ 
+
   },
-  "private": true,
+  "publishConfig": {
+  "registry": "http://192.168.0.32:8081/repository/Angular-project-custom-mc/"
+},
+  "private": false,
   "dependencies": {
     "@angular/animations": "^18.0.0",
     "@angular/common": "^18.0.0",
