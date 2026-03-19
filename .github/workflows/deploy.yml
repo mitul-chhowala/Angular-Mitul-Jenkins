@@ -16,7 +16,11 @@ jobs:
 
     steps:
 
+      # Checkout code
+
       - uses: actions/checkout@v3
+
+      # Setup Node
 
       - name: Setup Node
 
@@ -24,19 +28,33 @@ jobs:
 
         with:
 
-          node-version: '20'
+          node-version: '18'
 
-      - name: Install dependencies
+      # Clean + Install dependencies
 
-        run: npm install --legacy-peer-deps
+      - name: Clean install dependencies
+
+        run: |
+
+          rm -rf node_modules package-lock.json
+
+          npm cache clean --force
+
+          npm install --legacy-peer-deps
+
+      # Install Angular CLI
 
       - name: Install Angular CLI
 
         run: npm install -g @angular/cli
 
+      # Build Angular app
+
       - name: Build Angular app
 
-        run: npm run build 
+        run: npx ng build --configuration production
+
+      # Deploy to Azure Web App
 
       - name: Deploy to Azure
 
@@ -48,4 +66,5 @@ jobs:
 
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
 
+          package: ./dist
           package: ./dist
