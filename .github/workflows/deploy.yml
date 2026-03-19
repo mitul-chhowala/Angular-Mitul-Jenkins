@@ -30,6 +30,10 @@ jobs:
 
         run: npm install --legacy-peer-deps
 
+      - name: Install Angular CLI
+
+        run: npm install -g @angular/cli
+
       - name: Build Angular app
 
         run: npm run build 
